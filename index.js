@@ -1,8 +1,8 @@
 import { api, data, params,events } from "@serverless/cloud";
 import SibApiV3Sdk from  "sib-api-v3-sdk" ;
 
-var apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
-var sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
+const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
 var defaultClient = SibApiV3Sdk.ApiClient.instance;
 // Configure API key authorization: api-key
 var apiKey = defaultClient.authentications['api-key'];
@@ -23,8 +23,8 @@ api.post("/signup", async (req, res) => {
 
 data.on("created:user:*", async(event) => {
   const record = event.item.value;
-  var contactsApiInstance = new SibApiV3Sdk.ContactsApi();
-  var createContact = new SibApiV3Sdk.CreateContact();
+  const contactsApiInstance = new SibApiV3Sdk.ContactsApi();
+  const createContact = new SibApiV3Sdk.CreateContact();
   createContact.email = record.email; 
   createContact.attributes = {
     FIRSTNAME: record.firstName,
@@ -39,7 +39,7 @@ data.on("created:user:*", async(event) => {
 });
 
 events.on("contact.created",async({body}) => {
- var sendSmtpEmail = {
+ const sendSmtpEmail = {
   to: [{
       email: body.email,
       name: body.firstName
